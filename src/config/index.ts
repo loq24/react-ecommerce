@@ -7,3 +7,5 @@ export const wooApi = new WooCommerceRestApi({
   consumerSecret: 'cs_09c1586f3f9e26e1aff292624acfa6a03ffca399',
   version: 'wc/v3'
 });
+
+export const CART_COOKIE_NAME = 'CART_ITEMS';

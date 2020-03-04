@@ -1,26 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Layout, Row, Col, Badge } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
 import { useCartSelector } from '../../../selectors';
-import { updateTotalCartItems } from '../../../actions';
-import useCartCookie from '../../Hooks/useCartCookie';
 import './MainNav.less';
 
 const { Header } = Layout;
 
 const MainNav = () => {
-  const { totalItems } = useCartCookie();
-  const { totalCartItems } = useCartSelector();
-
-  const dispatch = useDispatch();
-
-  console.log('MainNavItems', totalCartItems);
-
-  useEffect(() => {
-    dispatch(updateTotalCartItems(totalItems));
-  }, []);
+  const { totalItems } = useCartSelector();
 
   return (
     <Header className="main-nav">
@@ -32,7 +20,7 @@ const MainNav = () => {
         </Col>
         <Col span={2} style={{ textAlign: 'right' }}>
           <Badge
-            count={totalCartItems}
+            count={totalItems}
             style={{
               backgroundColor: '#fff',
               color: '#999',
