@@ -1,0 +1,34 @@
+.product-skeleton-wrapper {
+  width: 700px;
+  margin: 50px auto;
+
+  .product-skeleton-image {
+    .ant-skeleton-header {
+      padding-right: 0;
+      .ant-skeleton-avatar {
+        width: 100%;
+        min-height: 350px;
+      }
+    }
+  }
+  .product-skeleton-description {
+    padding-left: 25px;
+    .ant-skeleton-title {
+      height: 40px;
+      margin-bottom: 35px;
+    }
+    .ant-skeleton-paragraph {
+      & > li:nth-child(1) {
+        height: 30px;
+        margin-bottom: 30px;
+      }
+      & > li:nth-child(2) {
+        height: 20px;
+      }
+    }
+    .ant-skeleton-button {
+      width: 100px;
+      margin-top: 20px;
+    }
+  }
+}

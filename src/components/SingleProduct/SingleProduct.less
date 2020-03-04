@@ -1,0 +1,27 @@
+.product-wrapper {
+  width: 700px;
+  margin: 50px auto;
+  .product-image {
+    background-color: #ededed;
+    img {
+      width: 100%;
+    }
+  }
+  .product-description {
+    padding-left: 25px;
+    .price-description {
+      span.ant-typography {
+        font-size: 30px;
+        &:not(.on_sale) {
+          color: #ff4c3b;
+        }
+      }
+    }
+    .ant-descriptions-title {
+      font-size: 35px;
+    }
+    .ant-descriptions-item-label {
+      font-size: 18px;
+    }
+  }
+}
