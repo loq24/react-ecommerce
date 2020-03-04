@@ -1,6 +1,9 @@
 import { Row, Col, Typography, Descriptions, Button } from 'antd';
 import { Product } from '../../actions';
-import useCartCookie from '../Hooks/useCartCookie';
+import { useDispatch } from 'react-redux';
+import { useCartSelector } from '../../selectors';
+import { isInCart } from '../../helpers';
+import { addToCart } from '../../actions';
 import './SingleProduct.less';
 
 const { Text } = Typography;
@@ -11,8 +14,6 @@ interface SingleProductProps {
 }
 
 const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
-  const { isInCart, addToCart } = useCartCookie();
-
   const {
     id,
     name,
@@ -24,9 +25,11 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
   } = product;
   const product_id = `${id}`;
   const featured_image = images.length > 0 ? images[0].src : '';
+  const { items } = useCartSelector();
+  const dispatch = useDispatch();
 
   const addItemToCart = () => {
-    addToCart(product_id);
+    dispatch(addToCart(product_id));
   };
 
   return (
@@ -52,7 +55,7 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
           <Item key="but" label="">
             <Button
               type="primary"
-              disabled={isInCart(product_id)}
+              disabled={isInCart(items, product_id)}
               onClick={addItemToCart}
             >
               Add To Cart

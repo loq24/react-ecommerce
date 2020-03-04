@@ -10,5 +10,6 @@ export enum CategoryTypes {
 }
 
 export enum CartCookieTypes {
-  updateTotalCartItems = 'UPDATE_TOTAL_CART_ITEMS'
+  addToCart = 'ADD_TO_CART',
+  removeFromCart = 'REMOVE_FROM_CART'
 }
