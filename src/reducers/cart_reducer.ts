@@ -2,9 +2,9 @@ import {
   RemoveFromCart,
   AddToCart,
   CartCookieTypes,
-  CART_ITEMS,
-  CART_ITEMS_DELIMETER
+  CART_ITEMS
 } from '../actions';
+import { getTotalItemsFromCart } from '../helpers';
 
 type Actions = AddToCart | RemoveFromCart;
 
@@ -13,15 +13,8 @@ export interface CartState {
   items: string;
 }
 
-const getTotalItemsFromString = (
-  items: string,
-  delimeter = CART_ITEMS_DELIMETER
-): number => {
-  return items ? items.split(delimeter).length : 0;
-};
-
 export const initialState: CartState = {
-  totalItems: getTotalItemsFromString(CART_ITEMS),
+  totalItems: getTotalItemsFromCart(CART_ITEMS),
   items: CART_ITEMS
 };
 
@@ -30,7 +23,7 @@ export default function(state = initialState, action: Actions) {
     case CartCookieTypes.addToCart:
     case CartCookieTypes.removeFromCart:
       const items = action.payload;
-      const totalItems = getTotalItemsFromString(items);
+      const totalItems = getTotalItemsFromCart(items);
       return { ...state, totalItems, items: action.payload };
     default:
       return state;
