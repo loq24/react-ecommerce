@@ -1,7 +1,8 @@
 export enum ProductTypes {
   fetchSaleProduts = 'FETCH_SALE_PRODUCTS',
   fetchCategoryProducts = 'FETCH_CATEGORY_PRODUCTS',
-  fetchProductById = 'FETCH_PRODUCT_BY_ID'
+  fetchProductById = 'FETCH_PRODUCT_BY_ID',
+  fetchProductsByIds = 'FETCH_PRODUCTS_BY_IDS'
 }
 
 export enum CategoryTypes {
@@ -9,7 +10,7 @@ export enum CategoryTypes {
   fetchCategory = 'FETCH_CATEGORY'
 }
 
-export enum CartCookieTypes {
+export enum CartTypes {
   addToCart = 'ADD_TO_CART',
   removeFromCart = 'REMOVE_FROM_CART'
 }

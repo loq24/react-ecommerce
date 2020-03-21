@@ -34,3 +34,8 @@ export interface FetchProductById {
   type: ProductTypes.fetchProductById;
   payload: Product;
 }
+
+export interface FetchProductsByIds {
+  type: ProductTypes.fetchProductsByIds;
+  payload: Product[];
+}
