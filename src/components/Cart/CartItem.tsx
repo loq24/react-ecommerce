@@ -1,27 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Product, removeFromCart } from '../../actions';
+import { Product, removeFromCart, updateCartItemCount } from '../../actions';
 import { Typography, InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useCartSelector } from '../../selectors';
+import { getCartItemCount } from '../../helpers';
 
 const { Title, Text } = Typography;
 
 interface CartItemProps {
-  item: Product;
+  product: Product;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+const CartItem: React.FC<CartItemProps> = ({ product }) => {
   const [isDeleting, setDeleting] = useState(false);
-  const { id, name, images, regular_price, sale_price, on_sale } = item;
+  const [itemCount, setItemCount] = useState(0);
+
+  const {
+    id,
+    name,
+    images,
+    price,
+    regular_price,
+    sale_price,
+    on_sale
+  } = product;
   const featured_image = images.length > 0 ? images[0].src : '';
   const product_id = `${id}`;
 
+  const { items } = useCartSelector();
   const dispatch = useDispatch();
 
   const removeThisItem = () => {
     setDeleting(true);
     dispatch(removeFromCart(product_id));
   };
+
+  const handleUpdateCartItem = (count = 1) => {
+    if (itemCount > count) {
+      dispatch(updateCartItemCount(product_id, price, -1));
+    } else {
+      dispatch(updateCartItemCount(product_id, price, 1));
+    }
+  };
+
+  useEffect(() => {
+    const totalItemCount = getCartItemCount(items, product_id);
+    setItemCount(totalItemCount);
+  });
 
   return (
     <div className={`cart-item ${isDeleting ? `deleting` : ''}`}>
@@ -42,7 +68,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         </div>
       </div>
       <div className="quantity-control">
-        <InputNumber min={1} max={9} defaultValue={1} />
+        <InputNumber
+          min={1}
+          max={9}
+          value={itemCount}
+          onChange={count => handleUpdateCartItem(count)}
+        />
       </div>
       <div className="delete">
         <DeleteOutlined onClick={removeThisItem} />

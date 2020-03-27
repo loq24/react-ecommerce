@@ -1,44 +1,24 @@
-import Cookies from 'js-cookie';
-import { RemoveFromCart, AddToCart, CartTypes } from '../actions';
-import { CART_ITEMS, CART_ITEMS_DELIMETER } from '../helpers';
+import {
+  Cart,
+  RemoveFromCart,
+  AddToCart,
+  CartTypes,
+  UpdateCartItemCount
+} from '../actions';
+import {
+  getTotalItemsCookie,
+  getCartCookieArr,
+  getItemIndex,
+  updateCartItemCount,
+  saveToCartCookie,
+  removeItem
+} from '../helpers';
 
-//Cookies.remove(CART_ITEMS);
-
-const stringifyArr = (arr: string[]): string => {
-  return arr.join(CART_ITEMS_DELIMETER);
-};
-
-const saveToCartCookie = (arr: string[]) => {
-  Cookies.set(CART_ITEMS, stringifyArr(arr), { expires: 7 });
-};
-
-const getCartCookie = (): string => {
-  return Cookies.get(CART_ITEMS) || '';
-};
-
-const getCartCookieArr = (): string[] => {
-  const items = getCartCookie();
-  return items ? items.split(CART_ITEMS_DELIMETER) : [];
-};
-
-const getTotalItemsCookie = (): number => {
-  const items = getCartCookie();
-  return items ? items.split(CART_ITEMS_DELIMETER).length : 0;
-};
-
-const removeItem = (items: string[], id: string) => {
-  const index = items.indexOf(id);
-  if (index > -1) {
-    items.splice(index, 1);
-  }
-  return items;
-};
-
-type Actions = AddToCart | RemoveFromCart;
+type Actions = AddToCart | RemoveFromCart | UpdateCartItemCount;
 
 export interface CartState {
   totalItems: number;
-  items: string[];
+  items: Cart[];
 }
 
 export const initialState: CartState = {
@@ -49,7 +29,24 @@ export const initialState: CartState = {
 export default function(state = initialState, action: Actions) {
   switch (action.type) {
     case CartTypes.addToCart:
-      const cartItems = [...state.items, action.payload];
+    case CartTypes.updateCartItemCount:
+      const cartItem = action.payload;
+      const index = getItemIndex(state.items, cartItem.id);
+      const currentItems = state.items;
+
+      let cartItems: Cart[] = [];
+
+      // if item already exists increase count
+      if (index > -1) {
+        cartItems = updateCartItemCount(
+          [...currentItems],
+          index,
+          cartItem.count
+        );
+      } else {
+        cartItems = [...currentItems, action.payload];
+      }
+
       saveToCartCookie(cartItems);
 
       return { ...state, items: cartItems, totalItems: cartItems.length };
@@ -65,6 +62,7 @@ export default function(state = initialState, action: Actions) {
         items: filteredItems,
         totalItems: filteredItems.length
       };
+
     default:
       return state;
   }

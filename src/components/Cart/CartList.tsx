@@ -4,14 +4,14 @@ import CartItem from './CartItem';
 import { Product } from '../../actions';
 
 interface CartListProps {
-  items: Product[];
+  products: Product[];
 }
 
-const CartList: React.FC<CartListProps> = ({ items }) => {
+const CartList: React.FC<CartListProps> = ({ products }) => {
   return (
     <div className="cart-list">
-      {items.map(item => {
-        return <CartItem item={item} key={item.id} />;
+      {products.map(product => {
+        return <CartItem product={product} key={product.id} />;
       })}
     </div>
   );

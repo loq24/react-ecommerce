@@ -12,5 +12,6 @@ export enum CategoryTypes {
 
 export enum CartTypes {
   addToCart = 'ADD_TO_CART',
-  removeFromCart = 'REMOVE_FROM_CART'
+  removeFromCart = 'REMOVE_FROM_CART',
+  updateCartItemCount = 'UPDATE_CART_ITEM_COUNT'
 }

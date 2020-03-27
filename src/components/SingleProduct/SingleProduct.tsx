@@ -4,7 +4,6 @@ import cartNotification from './CartNotification';
 import { Product, addToCart } from '../../actions';
 import { useCartSelector } from '../../selectors';
 import { useDispatch } from 'react-redux';
-import { isInCart } from '../../helpers';
 import './SingleProduct.less';
 
 const { Text } = Typography;
@@ -26,13 +25,14 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
     images,
     regular_price,
     sale_price,
-    on_sale
+    on_sale,
+    price
   } = product;
   const productId = `${id}`;
   const featured_image = images.length > 0 ? images[0].src : '';
 
   const addItemToCart = () => {
-    dispatch(addToCart(productId));
+    dispatch(addToCart(productId, price));
     cartNotification();
   };
 
@@ -58,11 +58,7 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
               <p dangerouslySetInnerHTML={{ __html: description }} />
             </Item>
             <Item key="button" label="">
-              <Button
-                type="primary"
-                disabled={isInCart(items, productId)}
-                onClick={addItemToCart}
-              >
+              <Button type="primary" onClick={addItemToCart}>
                 Add To Cart
               </Button>
             </Item>

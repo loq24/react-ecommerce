@@ -15,7 +15,7 @@ const CartListRenderer: React.FC<CartListRendererProps> = ({
   return (
     <>
       {cartProducts.length > 0 && totalItems > 0 ? (
-        <CartList items={cartProducts} />
+        <CartList products={cartProducts} />
       ) : (
         <SkeletonList itemCount={totalItems} />
       )}
