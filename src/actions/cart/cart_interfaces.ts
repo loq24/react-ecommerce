@@ -1,11 +1,22 @@
-import { CartCookieTypes } from '../types';
+import { CartTypes } from '../types';
+
+export interface Cart {
+  id: string;
+  price: string;
+  count: number;
+}
 
 export interface AddToCart {
-  type: CartCookieTypes.addToCart;
-  payload: string;
+  type: CartTypes.addToCart;
+  payload: Cart;
 }
 
 export interface RemoveFromCart {
-  type: CartCookieTypes.removeFromCart;
+  type: CartTypes.removeFromCart;
   payload: string;
+}
+
+export interface UpdateCartItemCount {
+  type: CartTypes.updateCartItemCount;
+  payload: Cart;
 }

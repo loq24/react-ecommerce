@@ -1,35 +1,43 @@
 import Cookies from 'js-cookie';
 import { CART_COOKIE_NAME } from '../../config';
 import { Dispatch } from 'redux';
-import { CartCookieTypes } from '../types';
-import { AddToCart, RemoveFromCart } from './cart_interfaces';
-import { removeItem } from '../../helpers';
+import { CartTypes } from '../types';
+import {
+  AddToCart,
+  RemoveFromCart,
+  UpdateCartItemCount
+} from './cart_interfaces';
 
 export const CART_ITEMS = Cookies.get(CART_COOKIE_NAME) || '';
 export const CART_ITEMS_DELIMETER = ',';
 
-export const addToCart = (id: string) => {
+export const addToCart = (id: string, price: string, count = 1) => {
   return (dispatch: Dispatch) => {
-    const updatedCart = CART_ITEMS
-      ? CART_ITEMS + CART_ITEMS_DELIMETER + id
-      : id;
-    Cookies.set(CART_COOKIE_NAME, updatedCart);
-
     dispatch<AddToCart>({
-      type: CartCookieTypes.addToCart,
-      payload: updatedCart
+      type: CartTypes.addToCart,
+      payload: { id, price, count }
     });
   };
 };
 
 export const removeFromCart = (id: string) => {
   return (dispatch: Dispatch) => {
-    const updatedCart = removeItem(CART_ITEMS, id);
-    Cookies.set(CART_COOKIE_NAME, updatedCart);
-
     dispatch<RemoveFromCart>({
-      type: CartCookieTypes.removeFromCart,
-      payload: updatedCart
+      type: CartTypes.removeFromCart,
+      payload: id
+    });
+  };
+};
+
+export const updateCartItemCount = (
+  id: string,
+  price: string,
+  count: number
+) => {
+  return (dispatch: Dispatch) => {
+    dispatch<UpdateCartItemCount>({
+      type: CartTypes.updateCartItemCount,
+      payload: { id, price, count }
     });
   };
 };

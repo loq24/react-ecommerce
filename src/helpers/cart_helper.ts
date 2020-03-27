@@ -1,37 +1,93 @@
-import { CART_ITEMS_DELIMETER } from '../actions';
+import Cookies from 'js-cookie';
+import { Product, Cart } from '../actions';
 
-export const removeItem = (
-  items: string,
-  id: string,
-  delimeter = CART_ITEMS_DELIMETER
-) => {
-  let itemsArr = items ? items.split(delimeter) : [];
-  for (let i = 0; i < itemsArr.length; i++) {
-    if (itemsArr[i] === id) {
-      itemsArr.splice(i, 1);
-      itemsArr.join(delimeter);
-    }
-  }
-  return `${itemsArr}`;
+//Cookies.remove(CART_ITEMS);
+
+export const CART_ITEMS = 'CART_ITEMS';
+export const CART_ITEMS_DELIMETER = ',';
+
+export const calculateTotalPrice = (cartItems: Cart[]): number => {
+  let totalPrice = 0;
+  cartItems.map(item => {
+    totalPrice += Number(item.price) * item.count;
+  });
+  return totalPrice;
 };
 
-export const isInCart = (
-  items: string,
-  id: string,
-  delimeter = CART_ITEMS_DELIMETER
-) => {
-  if (items) {
-    const arrItems = items.split(delimeter);
-    return arrItems.some(function(v) {
-      return v === id;
+export const getCartIds = (cartItems: Cart[]): string => {
+  let cartItemIds = cartItems.map(item => item.id);
+  return cartItemIds.join(CART_ITEMS_DELIMETER);
+};
+
+export const getCartItemCount = (
+  cartItems: Cart[],
+  currentProductId: string
+): number => {
+  return cartItems.find(item => item.id === currentProductId)?.count || 0;
+};
+
+export const stringifyArr = (cartItems: Cart[]): string => {
+  return cartItems
+    .map((item: Cart) => {
+      return `${item.id}-${item.price}-${item.count}`;
+    })
+    .join(CART_ITEMS_DELIMETER);
+};
+
+export const saveToCartCookie = (cartItems: Cart[]) => {
+  Cookies.set(CART_ITEMS, stringifyArr(cartItems), { expires: 7 });
+};
+
+export const getCartCookie = (): string => {
+  return Cookies.get(CART_ITEMS) || '';
+};
+
+export const getCartCookieArr = (): Cart[] => {
+  const cartCookieStr = getCartCookie();
+  const cartItems = cartCookieStr
+    ? cartCookieStr.split(CART_ITEMS_DELIMETER)
+    : [];
+  let items: Cart[] = [];
+  if (cartItems.length > 0) {
+    cartItems.forEach((cartItem, i) => {
+      const cartItemPieces = cartItem.split('-');
+      items = [
+        ...items,
+        {
+          id: cartItemPieces[0],
+          price: cartItemPieces[1],
+          count: Number(cartItemPieces[2])
+        }
+      ];
     });
   }
-  return false;
+
+  return items;
 };
 
-export const getTotalItemsFromCart = (
-  items: string,
-  delimeter = CART_ITEMS_DELIMETER
-): number => {
-  return items ? items.split(delimeter).length : 0;
+export const getTotalItemsCookie = (): number => {
+  const items = getCartCookie();
+  return items ? items.split(CART_ITEMS_DELIMETER).length : 0;
+};
+
+export const getItemIndex = (cartItems: Cart[], id: string) => {
+  return cartItems.map(item => item.id).indexOf(id);
+};
+
+export const removeItem = (cartItems: Cart[], id: string) => {
+  const index = getItemIndex(cartItems, id);
+  if (index > -1) {
+    cartItems.splice(index, 1);
+  }
+  return cartItems;
+};
+
+export const updateCartItemCount = (
+  cartItems: Cart[],
+  index: number,
+  count: number
+) => {
+  return cartItems.map((item, i) => {
+    return i === index ? { ...item, count: item.count + count } : item;
+  });
 };
