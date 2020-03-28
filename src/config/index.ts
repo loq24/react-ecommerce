@@ -2,9 +2,9 @@
 import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
 
 export const wooApi = new WooCommerceRestApi({
-  url: 'http://reactecommercewp.test',
-  consumerKey: 'ck_35a8627153ced2f4b7325411f48c8c9287e6da51',
-  consumerSecret: 'cs_09c1586f3f9e26e1aff292624acfa6a03ffca399',
+  url: 'https://react-ecommerce.lougiequisel.com',
+  consumerKey: 'ck_64aa28b5e566c317b5a9a809fa6f07b19e646abc',
+  consumerSecret: 'cs_a56e63dc12ab253643dc05a7c6b934024aee55cf',
   version: 'wc/v3'
 });
 
