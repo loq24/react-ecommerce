@@ -1,6 +1,7 @@
 import { ProductCategory } from '../../actions';
 import CategoryItem from './CategoryItem';
 import MainRowLayout from '../MainRowLayout/MainRowLayout';
+import './CategoryList.less';
 
 interface CategoryListProps {
   categories: ProductCategory[];

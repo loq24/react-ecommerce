@@ -22,6 +22,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
         key={category.id}
       >
         <Card
+          className="category-item-card"
           hoverable
           cover={
             featured_image ? <img alt="example" src={featured_image} /> : null
