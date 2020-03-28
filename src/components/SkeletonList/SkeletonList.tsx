@@ -1,5 +1,4 @@
 import React from 'react';
-import { Layout, Row } from 'antd';
 import SkeletonItem from './SkeletonItem';
 import MainRowLayout from '../MainRowLayout/MainRowLayout';
 import './SkeletonList.less';
