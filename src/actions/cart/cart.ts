@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie';
-import { CART_COOKIE_NAME } from '../../config';
 import { Dispatch } from 'redux';
 import { CartTypes } from '../types';
 import {
@@ -7,9 +6,6 @@ import {
   RemoveFromCart,
   UpdateCartItemCount
 } from './cart_interfaces';
-
-export const CART_ITEMS = Cookies.get(CART_COOKIE_NAME) || '';
-export const CART_ITEMS_DELIMETER = ',';
 
 export const addToCart = (id: string, price: string, count = 1) => {
   return (dispatch: Dispatch) => {
