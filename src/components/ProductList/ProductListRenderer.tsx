@@ -25,8 +25,8 @@ const ProductListRenderer: React.FC<ProductListRendererProps> = ({
       {skeleton && products.length === 0 && (
         <SkeletonList itemCount={skeletonCount} />
       )}
-      {spin && products.length === 0 && <Spinner />}
-      {products.length > 0 && <ProductList products={products} />}
+      {products.length > 0 && !spin && <ProductList products={products} />}
+      {spin && <Spinner />}
     </SkeletonListContext.Provider>
   );
 };
