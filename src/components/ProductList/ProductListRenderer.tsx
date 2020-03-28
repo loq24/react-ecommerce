@@ -3,27 +3,32 @@ import ProductList from './ProductList';
 import Spinner from '../Spinner/Spinner';
 import { Product } from '../../actions';
 import SkeletonList from '../SkeletonList/SkeletonList';
+import { SkeletonListContext, Breakpoints } from '../../contexts';
 
 interface ProductListRendererProps {
   products: Product[];
   skeletonCount?: number;
   skeleton?: boolean;
   spin?: boolean;
+  breakpoints: Breakpoints;
 }
 
 const ProductListRenderer: React.FC<ProductListRendererProps> = ({
   products,
   skeleton,
   skeletonCount = 0,
-  spin
+  spin,
+  breakpoints
 }) => {
-  if (skeleton && products.length === 0) {
-    return <SkeletonList itemCount={skeletonCount} />;
-  }
-  if (spin || products.length === 0) {
-    return <Spinner />;
-  }
-  return <ProductList products={products} />;
+  return (
+    <SkeletonListContext.Provider value={breakpoints}>
+      {skeleton && products.length === 0 && (
+        <SkeletonList itemCount={skeletonCount} />
+      )}
+      {spin && products.length === 0 && <Spinner />}
+      {products.length > 0 && <ProductList products={products} />}
+    </SkeletonListContext.Provider>
+  );
 };
 
 export default ProductListRenderer;

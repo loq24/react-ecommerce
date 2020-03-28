@@ -7,7 +7,7 @@ import { useCartSelector, useProductSelector } from '../selectors';
 import { fetchProductsByIds } from '../actions';
 import OrderSummary from '../components/Cart/OrderSummary';
 import { calculateTotalPrice, getCartIds } from '../helpers';
-import { CartContext } from '../contexts';
+import { CartContext, SkeletonListContext, Breakpoints } from '../contexts';
 import './cart.less';
 
 const Cart = () => {
@@ -36,19 +36,26 @@ const Cart = () => {
         totalPrice
       }}
     >
-      <MainLayout title={`React eCommerce - Cart`}>
-        <Row className="cart-wrapper boxed-width">
-          <Col span={14}>
-            <CartListRenderer
-              cartProducts={cartProducts}
-              totalItems={totalItems}
-            />
-          </Col>
-          <Col span={10}>
-            <OrderSummary cartProducts={cartProducts} totalItems={totalItems} />
-          </Col>
-        </Row>
-      </MainLayout>
+      <SkeletonListContext.Provider
+        value={{ xl: 14, lg: 24, md: 24, sm: 24, xs: 24 }}
+      >
+        <MainLayout title={`React eCommerce - Cart`}>
+          <Row className="cart-wrapper boxed-width">
+            <Col xl={14} lg={24} md={24} sm={24} xs={24}>
+              <CartListRenderer
+                cartProducts={cartProducts}
+                totalItems={totalItems}
+              />
+            </Col>
+            <Col xl={10} lg={24} md={24} sm={24} xs={24}>
+              <OrderSummary
+                cartProducts={cartProducts}
+                totalItems={totalItems}
+              />
+            </Col>
+          </Row>
+        </MainLayout>
+      </SkeletonListContext.Provider>
     </CartContext.Provider>
   );
 };

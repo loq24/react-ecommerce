@@ -1,8 +1,11 @@
 .product-skeleton-wrapper {
-  width: 700px;
+  max-width: 700px;
   margin: 50px auto;
 
   .product-skeleton-image {
+    @media (max-width: 700px) {
+      width: 100%;
+    }
     .ant-skeleton-header {
       padding-right: 0;
       .ant-skeleton-avatar {
@@ -13,6 +16,10 @@
   }
   .product-skeleton-description {
     padding-left: 25px;
+    @media (max-width: 700px) {
+      width: 100%;
+      padding-right: 25px;
+    }
     .ant-skeleton-title {
       height: 40px;
       margin-bottom: 35px;

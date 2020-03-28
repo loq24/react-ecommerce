@@ -23,6 +23,7 @@ const cartNotification = () => {
       'You have successfully added an item to your cart. To check out, click the button below.',
     icon: <SmileOutlined style={{ color: '#108ee9' }} />,
     top: 50,
+    duration: 2,
     btn,
     key
   });

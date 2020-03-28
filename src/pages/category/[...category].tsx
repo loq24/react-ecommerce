@@ -39,7 +39,11 @@ const Category = () => {
         title={`Category: ${currentCategoryName}`}
         subTitle={curretCategoryDesc}
       />
-      <ProductListRenderer spin={isLoading} products={categoryProducts} />
+      <ProductListRenderer
+        spin={isLoading}
+        products={categoryProducts}
+        breakpoints={{ xl: 6, lg: 6, md: 6, sm: 12, xs: 24 }}
+      />
     </MainLayout>
   );
 };

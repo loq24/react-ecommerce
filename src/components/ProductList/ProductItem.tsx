@@ -1,6 +1,8 @@
+import React from 'react';
 import Link from 'next/link';
 import { Product } from '../../actions';
 import { Row, Col, Card, Typography, Button } from 'antd';
+import { SkeletonListContext } from '../../contexts';
 const { Text } = Typography;
 
 interface SaleProductItemProps {
@@ -8,6 +10,7 @@ interface SaleProductItemProps {
 }
 
 const SaleProductItem: React.FC<SaleProductItemProps> = ({ product }) => {
+  const { xl, md, sm, lg, xs } = React.useContext(SkeletonListContext);
   const {
     id,
     slug,
@@ -20,7 +23,7 @@ const SaleProductItem: React.FC<SaleProductItemProps> = ({ product }) => {
   const featured_image = images.length > 0 ? images[0].src : '';
   return (
     <Link href="/product/[...product]" as={`/product/${id}/${slug}`}>
-      <Col span={6} className="centered-col">
+      <Col xl={xl} lg={lg} md={md} sm={sm} xs={xs} className="centered-col">
         <Card
           hoverable
           cover={
