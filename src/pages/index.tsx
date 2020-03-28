@@ -23,10 +23,24 @@ const Home = () => {
       <MainCarousel />
 
       <SimpleHeading title="Product Categories" />
-      <CategoryListRenderer categories={mainCategories} />
+      <CategoryListRenderer
+        categories={mainCategories}
+        breakpoints={{
+          xl: 8,
+          lg: 8,
+          md: 8,
+          sm: 24,
+          xs: 24
+        }}
+      />
 
       <SimpleHeading title="On sale Products" level={2} />
-      <ProductListRenderer skeleton skeletonCount={4} products={saleProducts} />
+      <ProductListRenderer
+        skeleton
+        skeletonCount={4}
+        products={saleProducts}
+        breakpoints={{ xl: 6, lg: 6, md: 6, sm: 12, xs: 24 }}
+      />
     </MainLayout>
   );
 };

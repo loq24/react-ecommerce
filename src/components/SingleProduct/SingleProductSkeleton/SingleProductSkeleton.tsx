@@ -1,13 +1,22 @@
 import React from 'react';
 import { Row, Col, Skeleton } from 'antd';
+import { SingleProductContext } from '../../../contexts';
 import './SingleProductSkeleton.less';
 
 const { Button } = Skeleton;
 
 const SingleProductSkeleton: React.FC = () => {
+  const breakpoints = React.useContext(SingleProductContext);
+
   return (
     <Row className="product-skeleton-wrapper" justify="space-around">
-      <Col span={10} className="product-skeleton-image">
+      <Col
+        xl={breakpoints[0].xl}
+        lg={breakpoints[0].lg}
+        md={breakpoints[0].md}
+        sm={breakpoints[0].sm}
+        className="product-skeleton-image"
+      >
         <Skeleton
           loading={true}
           active
@@ -16,7 +25,13 @@ const SingleProductSkeleton: React.FC = () => {
           title={false}
         />
       </Col>
-      <Col span={14} className="product-skeleton-description">
+      <Col
+        xl={breakpoints[1].xl}
+        lg={breakpoints[1].lg}
+        md={breakpoints[1].md}
+        sm={breakpoints[1].sm}
+        className="product-skeleton-description"
+      >
         <Skeleton
           loading={true}
           active

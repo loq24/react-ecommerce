@@ -11,54 +11,73 @@
         }
       }
     }
+    .cart-list {
+      .cart-item {
+        display: flex;
+        flex-flow: row wrap;
+        margin-bottom: 25px;
+        border: 1px solid #f0f0f0;
+        padding: 10px;
 
-    .cart-item {
-      display: flex;
-      flex-flow: row wrap;
-      margin-bottom: 25px;
-      border: 1px solid #f0f0f0;
-      padding: 10px;
-
-      &.deleting {
-        opacity: 0.5;
-      }
-
-      .featured-pp {
-        width: 80px;
-        height: 80px;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        &.deleting {
+          opacity: 0.5;
         }
-      }
-      .description {
-        width: 315px;
-        padding-left: 15px;
 
-        div {
-          span:last-child {
-            color: @primary-color;
+        .featured-pp {
+          width: 80px;
+          height: 80px;
+          @media (max-width: 767px) {
+            margin-bottom: 20px;
+          }
+          @media (max-width: 520px) {
+            width: 30%;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
         }
-      }
-      .quantity-control {
-        display: flex;
-        flex-flow: column wrap;
-        justify-content: center;
-        input {
-          text-align: center;
+        .description {
+          width: 315px;
+          @media (max-width: 767px) {
+            width: 80%;
+          }
+          @media (max-width: 520px) {
+            width: 70%;
+          }
+          padding-left: 15px;
+
+          div {
+            span:last-child {
+              color: @primary-color;
+            }
+          }
         }
-      }
-      .delete {
-        .quantity-control();
-        width: 150px;
-        span {
-          font-size: 20px;
-          opacity: 0.6;
-          cursor: pointer;
-          &:hover {
-            opacity: 1;
+        .quantity-control {
+          display: flex;
+          flex-flow: column wrap;
+          justify-content: center;
+          input {
+            text-align: center;
+          }
+          @media (max-width: 320px) {
+            width: 50%;
+          }
+        }
+        .delete {
+          .quantity-control();
+          width: 150px;
+          span {
+            font-size: 20px;
+            opacity: 0.6;
+            cursor: pointer;
+            &:hover {
+              opacity: 1;
+            }
+          }
+          @media (max-width: 320px) {
+            width: 50%;
           }
         }
       }

@@ -32,7 +32,14 @@ const Product = () => {
 
   return (
     <MainLayout title={`React eCommerce - ${currentProductName}`}>
-      <SingleProductRenderer product={currentProduct} loading={isLoading} />
+      <SingleProductRenderer
+        product={currentProduct}
+        loading={isLoading}
+        breakpoints={[
+          { xl: 10, lg: 10, md: 10, sm: 24, xs: 0 },
+          { xl: 14, lg: 14, md: 14, sm: 24, xs: 0 }
+        ]}
+      />
     </MainLayout>
   );
 };
