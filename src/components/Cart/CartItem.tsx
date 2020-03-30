@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { Product, removeFromCart, updateCartItemCount } from '../../actions';
 import { Typography, InputNumber } from 'antd';
@@ -23,7 +24,8 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
     price,
     regular_price,
     sale_price,
-    on_sale
+    on_sale,
+    slug
   } = product;
   const featured_image = images.length > 0 ? images[0].src : '';
   const product_id = `${id}`;
@@ -52,20 +54,32 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
   return (
     <div className={`cart-item ${isDeleting ? `deleting` : ''}`}>
       <div className="featured-pp">
-        {featured_image && <img src={featured_image} />}
+        <Link
+          href="/product/[...product]"
+          as={`/product/${product_id}/${slug}`}
+        >
+          <a>{featured_image && <img src={featured_image} />}</a>
+        </Link>
       </div>
       <div className="description">
-        <Title level={4}>{name}</Title>
-        <div>
-          <Text
-            type="secondary"
-            delete={on_sale}
-            className={`${on_sale ? 'on_sale' : 'regular'}`}
-          >
-            ${regular_price}
-          </Text>
-          {on_sale && <Text style={{ marginLeft: 10 }}>${sale_price}</Text>}
-        </div>
+        <Link
+          href="/product/[...product]"
+          as={`/product/${product_id}/${slug}`}
+        >
+          <a>
+            <Title level={4}>{name}</Title>
+            <div>
+              <Text
+                type="secondary"
+                delete={on_sale}
+                className={`${on_sale ? 'on_sale' : 'regular'}`}
+              >
+                ${regular_price}
+              </Text>
+              {on_sale && <Text style={{ marginLeft: 10 }}>${sale_price}</Text>}
+            </div>
+          </a>
+        </Link>
       </div>
       <div className="quantity-control">
         <InputNumber
