@@ -8,6 +8,11 @@ const MainFooter = () => {
       <a href="https://lougiequisel.com/" target="_blank">
         @loq24
       </a>
+      . Visit{' '}
+      <a target="_blank" href="https://github.com/loq24/react-ecommerce">
+        Github
+      </a>{' '}
+      page.
     </Footer>
   );
 };
