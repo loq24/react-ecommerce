@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col } from 'antd';
 import CartItem from './CartItem';
 import { Product } from '../../actions';
 
@@ -10,7 +9,7 @@ interface CartListProps {
 const CartList: React.FC<CartListProps> = ({ products }) => {
   return (
     <div className="cart-list">
-      {products.map(product => {
+      {products.map((product) => {
         return <CartItem product={product} key={product.id} />;
       })}
     </div>

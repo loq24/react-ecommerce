@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Button } from 'antd';
 import { Product } from '../../actions';
 import { CartContext } from '../../contexts';
+import CheckoutModal from './Checkout/CheckoutModal';
 
 const { Title, Text } = Typography;
 
@@ -12,9 +13,10 @@ interface OrderSummaryProps {
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
   cartProducts,
-  totalItems
+  totalItems,
 }) => {
   const { totalPrice } = React.useContext(CartContext);
+  const [modalVisibility, setModalVisibility] = useState(false);
 
   return (
     <div className="order-summary">
@@ -27,9 +29,14 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
         type="primary"
         size="large"
         disabled={cartProducts.length === 0 || totalItems === 0}
+        onClick={() => setModalVisibility(true)}
       >
         CHECKOUT
       </Button>
+      <CheckoutModal
+        visible={modalVisibility}
+        hideModal={() => setModalVisibility(false)}
+      />
     </div>
   );
 };
