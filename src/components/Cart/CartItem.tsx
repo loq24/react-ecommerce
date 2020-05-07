@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { Product, removeFromCart, updateCartItemCount } from '../../actions';
-import { Typography, InputNumber } from 'antd';
+import { InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useCartSelector } from '../../selectors';
 import { getCartItemCount } from '../../helpers';
-
-const { Title, Text } = Typography;
+import ProductInfo from './ProductInfo';
 
 interface CartItemProps {
   product: Product;
@@ -17,17 +15,7 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
   const [isDeleting, setDeleting] = useState(false);
   const [itemCount, setItemCount] = useState(0);
 
-  const {
-    id,
-    name,
-    images,
-    price,
-    regular_price,
-    sale_price,
-    on_sale,
-    slug
-  } = product;
-  const featured_image = images.length > 0 ? images[0].src : '';
+  const { id, price } = product;
   const product_id = `${id}`;
 
   const { items } = useCartSelector();
@@ -53,40 +41,13 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
 
   return (
     <div className={`cart-item ${isDeleting ? `deleting` : ''}`}>
-      <div className="featured-pp">
-        <Link
-          href="/product/[...product]"
-          as={`/product/${product_id}/${slug}`}
-        >
-          <a>{featured_image && <img src={featured_image} />}</a>
-        </Link>
-      </div>
-      <div className="description">
-        <Link
-          href="/product/[...product]"
-          as={`/product/${product_id}/${slug}`}
-        >
-          <a>
-            <Title level={4}>{name}</Title>
-            <div>
-              <Text
-                type="secondary"
-                delete={on_sale}
-                className={`${on_sale ? 'on_sale' : 'regular'}`}
-              >
-                ${regular_price}
-              </Text>
-              {on_sale && <Text style={{ marginLeft: 10 }}>${sale_price}</Text>}
-            </div>
-          </a>
-        </Link>
-      </div>
+      <ProductInfo product={product} />
       <div className="quantity-control">
         <InputNumber
           min={1}
           max={9}
           value={itemCount}
-          onChange={count => handleUpdateCartItem(count)}
+          onChange={(count) => handleUpdateCartItem(count)}
         />
       </div>
       <div className="delete">

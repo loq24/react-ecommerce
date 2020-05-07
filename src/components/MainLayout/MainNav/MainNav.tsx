@@ -25,18 +25,20 @@ const MainNav = () => {
         </Col>
         <Col span={2} style={{ textAlign: 'right' }}>
           <Link href="/cart">
-            <Badge
-              count={totalItems}
-              style={{
-                backgroundColor: '#fff',
-                color: '#999',
-                boxShadow: '0 0 0 1px #d9d9d9 inset',
-              }}
-            >
-              <ShoppingCartOutlined
-                style={{ fontSize: 25, cursor: 'pointer' }}
-              />
-            </Badge>
+            <div>
+              <Badge
+                count={totalItems}
+                style={{
+                  backgroundColor: '#fff',
+                  color: '#999',
+                  boxShadow: '0 0 0 1px #d9d9d9 inset',
+                }}
+              >
+                <ShoppingCartOutlined
+                  style={{ fontSize: 25, cursor: 'pointer' }}
+                />
+              </Badge>
+            </div>
           </Link>
         </Col>
       </Row>
